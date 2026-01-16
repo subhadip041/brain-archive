@@ -18,9 +18,10 @@ const contentSchema = new mongoose.Schema({
         type: String,
         enum: Object.values(contentType)
     },
-    userId:{type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+    userId:{type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    tags: {type: mongoose.Schema.Types.ObjectId, ref: 'Tags'}
 
 })
-const Content = mongoose.model('Content',contentSchema)
+export const Content = mongoose.model('Content',contentSchema)
 
-export default Content
+ 
