@@ -1,6 +1,7 @@
 import express from 'express';
 const router = express.Router()
 import { signUpController } from '../../../controller/auth/signup.controller.js';
+import { signInController } from '../../../controller/auth/signin.controller.js';
 
 router.get('/',(req,res)=>{
     res.status(200).json({
@@ -11,15 +12,6 @@ router.get('/',(req,res)=>{
 
 router.post('/signup',signUpController)
 
-router.post('/signin',(req,res)=>{
-    const signInPayload = req.body;
-        console.log(signInPayload)
-
-    res.status(200).json({
-       msg: req.body,
-       
-    })
-
-})
+router.post('/signin',signInController)
 
 export default router

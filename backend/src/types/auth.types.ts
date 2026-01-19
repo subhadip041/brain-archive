@@ -23,6 +23,6 @@ export const signinType = z.object({
 
 
   password: z.string()
-    .min(8, { message: 'Username must be at least 3 characters long' })
-    .max(20, { message: 'Username must be at most 20 characters long' })
+    .min(8, { message: 'passowrd must be at least 8 characters long' })
+    .max(20, { message: 'password must be at most 20 characters long' })
 });

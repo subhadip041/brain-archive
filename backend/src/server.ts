@@ -2,12 +2,12 @@ import express from "express"
 import { dbConnection } from "./config/db.js"
 import v1Router from "./routes/v1/index.js"
 import cookieParser from 'cookie-parser'
+dbConnection()
 
 const app = express()
 app.use(express.json())
 app.use(cookieParser())
 
-dbConnection()
 
 
 app.get('/', (req, res) => {
