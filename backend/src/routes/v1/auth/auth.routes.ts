@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router()
-
+import { signUpController } from '../../../controller/auth/signup.controller.js';
 
 router.get('/',(req,res)=>{
     res.status(200).json({
@@ -9,14 +9,7 @@ router.get('/',(req,res)=>{
 })
 
 
-router.post('/signup',(req,res)=>{
-    const signUpPayload = req.body;
-    console.log(signUpPayload)
-    res.status(200).json({  
-         msg: req.body,
-    })
-
-})
+router.post('/signup',signUpController)
 
 router.post('/signin',(req,res)=>{
     const signInPayload = req.body;
