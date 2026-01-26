@@ -32,6 +32,7 @@ export const createContentController = async (req: Request, res: Response) => {
         const createTag = await Tags.insertMany(newTags)
 
         const tagIds = [...existingTags.map(tag_id => tag_id._id), ...createTag.map(tag_id => tag_id._id)]
+        const tagTitle = [...existingTags.map(tag_id => tag_id.title), ...createTag.map(tag_id => tag_id.tagTitle)]
 
         const createContent = await Content.create({
             link: link,

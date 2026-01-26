@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { string } from "zod";
 
 enum contentType {
     IMAGE = 'image',
@@ -23,7 +24,6 @@ const contentSchema = new mongoose.Schema({
     },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tags' }],
-
 }, { timestamps: true })
 export const Content = mongoose.model('Content', contentSchema)
 

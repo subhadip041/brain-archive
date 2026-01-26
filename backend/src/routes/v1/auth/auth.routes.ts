@@ -6,7 +6,7 @@ import { logoutController } from '../../../controller/auth/logout.controller.js'
 
 router.get('/',(req,res)=>{
     res.status(200).json({
-        msg:"from auth touter"
+        msg:"from auth router"
     })
 })
 
