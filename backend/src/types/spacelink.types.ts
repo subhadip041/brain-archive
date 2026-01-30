@@ -8,3 +8,11 @@ export const createSpaceLinkType = z.object({
   isPublic: z.boolean().optional(),
 });
 
+
+export const hashType = z.object({
+  link: z.string(),
+})
+
+export const shareType = z.object({
+  email: z.array(z.string().email({ message: 'Invalid email address'}))
+})
