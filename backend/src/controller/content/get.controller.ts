@@ -9,7 +9,7 @@ export const getContentController = async (req: Request, res: Response) => {
     const userId = (req as any).userId
     const getContent = await Content.find({ userId: userId }).populate('tags', 'title').lean()
 
-    console.log(getContent)
+   // console.log(getContent)
     const response = getContent.map(content => ({
         id: content._id,
         type: content.type,
