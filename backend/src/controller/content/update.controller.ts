@@ -6,6 +6,7 @@ import { resolveTagIds } from "../../utils/tag.helper.js";
 
 export const updateContentController = async (req: Request, res: Response) => {
     try {
+        const userId = (req as any).userId
         const updateContentPayload = req.body;
         const updateContentCheck = updateContentType.safeParse(updateContentPayload)
         if (!updateContentCheck.success) {
@@ -18,8 +19,11 @@ export const updateContentController = async (req: Request, res: Response) => {
         const { id, link, type, title, tags } = req.body
         const tagIds = await resolveTagIds(tags)
 
-        const checkingContentAndUpdate = await Content.findByIdAndUpdate(
-            id, {
+        const checkingContentAndUpdate = await Content.findOneAndUpdate(
+            {
+                _id: id,
+                userId: userId
+            }, {
             link: link,
             type: type,
             title: title,

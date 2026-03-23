@@ -35,3 +35,8 @@ export const updateContentType = z.object({
   tags: z.array(z.string())
   
 });
+
+
+export const deleteContentType = z.object({
+  id:contentIdType
+})
