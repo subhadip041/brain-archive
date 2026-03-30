@@ -41,9 +41,17 @@ export const signInController = async (req: Request, res: Response)=>{
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
 
+        const userDetails = {
+            id: userExits._id,
+            name: userExits.fullname,
+            email: userExits.email,
+        }
+
         return res.status(200).json({
-            msg: "Login done"
-        })
+            msg: "Login done",
+            user: userDetails,
+        }
+    )
 
 
     } catch (error) {
