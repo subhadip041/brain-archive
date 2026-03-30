@@ -33,7 +33,13 @@ export const signUpController = async (req: Request, res: Response) => {
         })
 
        const token = generatejwtToken(user._id.toString()) 
-
+        
+       const userDetails = {
+            id: user._id,
+            name: user.fullname,
+            email: user.email,
+        }
+        
         res.cookie("token", token, {
             httpOnly: true,
             sameSite: "strict",
@@ -41,7 +47,8 @@ export const signUpController = async (req: Request, res: Response) => {
         })
 
         return res.status(200).json({
-            msg: "User Created"
+            msg: "User Created",
+            user: userDetails
         })
 
 
