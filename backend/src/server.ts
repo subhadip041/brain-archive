@@ -9,6 +9,7 @@ const app = express()
 
 const corsOptions = {
   origin: 'http://localhost:8000', 
+  credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization']
 }
 
