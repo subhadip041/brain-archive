@@ -7,8 +7,13 @@ dbConnection()
 
 const app = express()
 
+const allowedOrigins = [
+  "http://localhost:8000",
+  "https://app.brainarchive.cloud"
+];
+
 const corsOptions = {
-  origin: 'http://localhost:8000', 
+  origin: allowedOrigins, 
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization']
 }
