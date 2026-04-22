@@ -1,0 +1,59 @@
+name: CI/CD Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASS }}
+
+      - name: Build Docker image (from backend folder)
+        run: |
+          docker build -t ${{ secrets.DOCKER_USER }}/brain-archive-api:latest ./backend
+
+      - name: Push Docker image
+        run: |
+          docker push ${{ secrets.DOCKER_USER }}/brain-archive-api:latest
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            echo "Pulling latest image..."
+            docker pull ${{ secrets.DOCKER_USER }}/brain-archive-api:latest
+
+            echo "Stopping old container..."
+            docker stop brain-archive-api || true
+
+            echo "Removing old container..."
+            docker rm brain-archive-api || true
+
+            echo "Starting new container..."
+            docker run -d \
+              --name brain-archive-api \
+              -p 4200:4200 \
+              --restart always \
+              --env-file /root/brain-archive/.env \
+              ${{ secrets.DOCKER_USER }}/brain-archive-api:latest
+
+            echo "Cleaning unused images..."
+            docker image prune -f --filter "until=24h"
